@@ -17,9 +17,9 @@ namespace RestaurantApp.BL.Managers
     {
         
         private readonly IConfiguration _configuration;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<User> _userManager;
 
-        public UsersManager( IConfiguration configuration, UserManager<IdentityUser> userManager)
+        public UsersManager( IConfiguration configuration, UserManager<User> userManager)
         {
           
             _configuration = configuration;
@@ -48,7 +48,7 @@ namespace RestaurantApp.BL.Managers
         }
         public async Task<TokenDto> Login(LoginDto login)
         {
-            IdentityUser? user = await _userManager.FindByNameAsync(login.UserName);
+            User? user = await _userManager.FindByNameAsync(login.UserName);
             if (user == null)
             {
                 return new TokenDto(TokenResult.Failure);
@@ -61,7 +61,9 @@ namespace RestaurantApp.BL.Managers
             }
 
             var claimList = await _userManager.GetClaimsAsync(user);
-            return GenerateToken(claimList);
+            var token = GenerateToken(claimList);
+            token.Role = user.Type;
+            return token;
         }
 
         public async Task<RegisterResult> Register(RegisterDto registerDto)
@@ -82,7 +84,7 @@ namespace RestaurantApp.BL.Managers
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, newUser.Id),
-                new Claim(ClaimTypes.Role, "User")
+                new Claim(ClaimTypes.Role, registerDto.Type)
             };
 
             await _userManager.AddClaimsAsync(newUser, claims);
