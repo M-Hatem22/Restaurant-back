@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using RestaurantApp.BL;
 using RestaurantApp.BL.Managers;
+using RestaurantApp.BL.Managers.Orders;
 using RestaurantApp.DAL;
 using RestaurantApp.DAL.Data.Context;
+using RestaurantApp.DAL.Repos.Items;
 using System.Text;
 
 namespace RestaurantApp
@@ -42,6 +45,14 @@ namespace RestaurantApp
 
             builder.Services.AddScoped<IUsersManager, UsersManager>();
 
+            builder.Services.AddScoped<IItemtsReop, ItemsRepo>();
+            builder.Services.AddScoped<IItemsManager, ItemsManager>();
+
+            builder.Services.AddScoped<IOrdersRepo, OrdersRepo>();
+            builder.Services.AddScoped<IOrdersManager, OrdersManager>();
+
+            builder.Services.AddScoped<IOrderItemsRepo, OrderItemsRepo>();
+            builder.Services.AddScoped<IOrderItemsManager, OrderItemsManager>();
             //--------------------
 
             builder.Services.AddIdentity<User, IdentityRole>(options =>
