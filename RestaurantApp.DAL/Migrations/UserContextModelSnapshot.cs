@@ -184,7 +184,7 @@ namespace RestaurantApp.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Items");
+                    b.ToTable("Items", (string)null);
                 });
 
             modelBuilder.Entity("RestaurantApp.DAL.Data.Models.Order", b =>
@@ -206,7 +206,7 @@ namespace RestaurantApp.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("RestaurantApp.DAL.Data.Models.OrderItems", b =>
@@ -224,7 +224,7 @@ namespace RestaurantApp.DAL.Migrations
 
                     b.HasIndex("itemId");
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("OrderItems", (string)null);
                 });
 
             modelBuilder.Entity("RestaurantApp.DAL.User", b =>
