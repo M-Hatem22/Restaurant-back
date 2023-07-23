@@ -18,5 +18,6 @@ namespace RestaurantApp.DAL.Data.Models
         public User user { get; set; } = new User();
         [Column(TypeName = "decimal(10,2)")]
         public decimal totalPrice { get; set; }= 0;
+        public List<OrderItems> OrderItems = new();
     }
 }

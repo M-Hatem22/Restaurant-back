@@ -12,9 +12,9 @@ namespace RestaurantApp.BL
 {
     public class OrderItemsManager : IOrderItemsManager
     {
-        private readonly OrderItemsRepo orderItemrepo;
+        private readonly IOrderItemsRepo orderItemrepo;
 
-        public OrderItemsManager(OrderItemsRepo orderItemrepo)
+        public OrderItemsManager(IOrderItemsRepo orderItemrepo)
         {
             this.orderItemrepo = orderItemrepo;
         }
@@ -22,7 +22,7 @@ namespace RestaurantApp.BL
         {
             OrderItems additem = new()
             {
-                orderId = item.OrderId,
+                //orderId = item.OrderId,
                 itemId = item.itemId,
                 quantity = item.quantity
             };

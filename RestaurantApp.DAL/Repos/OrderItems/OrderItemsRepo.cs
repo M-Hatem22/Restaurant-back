@@ -10,33 +10,33 @@ namespace RestaurantApp.DAL
 {
     public class OrderItemsRepo : IOrderItemsRepo
     {
-        private readonly UserContext context;
+        private readonly UserContext _context;
 
         public OrderItemsRepo(UserContext context)
         {
-            this.context = context;
+            _context = context;
         }
-        public int addItems(Data.Models.OrderItems item)
+        public int addItems(OrderItems item)
         {
-            context.Add(item);
+            _context.Add(item);
             SaveChanges();
             return 1;
         }
 
-        public int deleteItems(Data.Models.OrderItems item)
+        public int deleteItems(OrderItems item)
         {
-            context.Set<Data.Models.OrderItems>().Remove(item);
+            _context.Set<OrderItems>().Remove(item);
             return 1;
         }
 
-        public IEnumerable<Data.Models.OrderItems> GetByOrderId(int orderId)
+        public IEnumerable<OrderItems> GetByOrderId(int orderId)
         {
-            return context.Set<Data.Models.OrderItems>().Where(a => a.orderId == orderId);
+            return _context.Set<OrderItems>().Where(a => a.orderId == orderId);
         }
 
         public int SaveChanges()
         {
-            return context.SaveChanges();
+            return _context.SaveChanges();
         }
     }
 }

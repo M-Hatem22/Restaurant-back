@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestaurantApp.DAL.Data.Context;
 
@@ -11,9 +12,11 @@ using RestaurantApp.DAL.Data.Context;
 namespace RestaurantApp.DAL.Migrations
 {
     [DbContext(typeof(UserContext))]
-    partial class UserContextModelSnapshot : ModelSnapshot
+    [Migration("20230723183955_orderItems")]
+    partial class orderItems
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -367,7 +370,7 @@ namespace RestaurantApp.DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("RestaurantApp.DAL.Data.Models.Order", "order")
-                        .WithMany("OrderItems")
+                        .WithMany()
                         .HasForeignKey("orderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -375,11 +378,6 @@ namespace RestaurantApp.DAL.Migrations
                     b.Navigation("item");
 
                     b.Navigation("order");
-                });
-
-            modelBuilder.Entity("RestaurantApp.DAL.Data.Models.Order", b =>
-                {
-                    b.Navigation("OrderItems");
                 });
 #pragma warning restore 612, 618
         }
