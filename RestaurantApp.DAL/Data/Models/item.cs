@@ -18,5 +18,7 @@ namespace RestaurantApp.DAL.Data.Models
         public decimal price { get; set; } = 0;
 
         public string image { get; set; } = string.Empty;
+        public List<OrderItems> OrderItems = new();
+
     }
 }

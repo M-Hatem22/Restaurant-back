@@ -13,7 +13,7 @@ namespace RestaurantApp.BL.Managers.Orders
         IEnumerable<OrderReadDto> GetOrders();
         OrderReadDto? GetOrder(int id);
         IEnumerable<OrderReadDto> GetOrderByUserId(string userId);
-        int AddOrder(OrderAddDto order);
+        int AddOrder(OrderAddDto order, string userId);
         int DeleteOrder(int id);
         
     }

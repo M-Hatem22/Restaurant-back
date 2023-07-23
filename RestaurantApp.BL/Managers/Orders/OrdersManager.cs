@@ -52,12 +52,17 @@ namespace RestaurantApp.BL.Managers.Orders
         }
 
         
-        public int AddOrder(OrderAddDto orderFromRequest)
+        public int AddOrder(OrderAddDto orderFromRequest, string userId)
         {
             Order order = new Order
             {
-                UserId = orderFromRequest.UserId,
-                totalPrice = orderFromRequest.totalPrice
+                UserId = userId,
+                totalPrice = orderFromRequest.totalPrice,
+                OrderItems = orderFromRequest.Items.Select(i => new OrderItems
+                {
+                    itemId = i.Itemid,
+                    quantity = i.Quantity
+                }).ToList()
             };
             ordersRepo.AddOrder(order);
             ordersRepo.savechanges();

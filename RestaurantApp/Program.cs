@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using RestaurantApp.APIs.Hubs;
 using RestaurantApp.BL;
 using RestaurantApp.BL.Managers;
 using RestaurantApp.BL.Managers.Orders;
@@ -48,11 +49,11 @@ namespace RestaurantApp
             builder.Services.AddScoped<IItemtsReop, ItemsRepo>();
             builder.Services.AddScoped<IItemsManager, ItemsManager>();
 
+            builder.Services.AddScoped<IOrderItemsManager, OrderItemsManager>();
+            builder.Services.AddScoped<IOrderItemsRepo, OrderItemsRepo>();
+
             builder.Services.AddScoped<IOrdersRepo, OrdersRepo>();
             builder.Services.AddScoped<IOrdersManager, OrdersManager>();
-
-            builder.Services.AddScoped<IOrderItemsRepo, OrderItemsRepo>();
-            builder.Services.AddScoped<IOrderItemsManager, OrderItemsManager>();
             //--------------------
 
             builder.Services.AddIdentity<User, IdentityRole>(options =>
@@ -94,6 +95,8 @@ namespace RestaurantApp
 
             });
 
+            builder.Services.AddSignalR();
+
             //builder.Services.AddIdentity<IdentityUser, IdentityRole>()
             //.AddEntityFrameworkStores<UserContext>()
             //.AddDefaultTokenProviders();
@@ -116,7 +119,7 @@ namespace RestaurantApp
 
 
             app.MapControllers();
-
+            app.MapHub<userHub>("/hubs/userCount");
             app.Run();
         }
     }

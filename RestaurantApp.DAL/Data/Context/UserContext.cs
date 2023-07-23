@@ -21,8 +21,8 @@ namespace RestaurantApp.DAL.Data.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-         
 
+            modelBuilder.Entity<Order>().HasMany(o => o.OrderItems).WithOne(o => o.order);
             
 
             
