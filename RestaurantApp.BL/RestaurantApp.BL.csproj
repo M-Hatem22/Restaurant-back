@@ -14,4 +14,8 @@
     <ProjectReference Include="..\RestaurantApp.DAL\RestaurantApp.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Managers\User\" />
+  </ItemGroup>
+
 </Project>

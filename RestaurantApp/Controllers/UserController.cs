@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RestaurantApp.BL;
 using RestaurantApp.BL.DTOs.Login_and_Register;
 using RestaurantApp.BL.Managers;
 
@@ -47,6 +48,30 @@ namespace RestaurantApp.APIs.Controllers
             }
 
             return tokenResult;
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public ActionResult<UserReadDto> GetUserById(string id)
+        {
+            UserReadDto? user = _usersManagers.GetUserById(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return user;
+        }
+
+        [HttpGet]
+        public ActionResult<List<UserReadDto>> GetAllUsers()
+        {
+            return _usersManagers.GetAllUsers().ToList();
+        }
+        [HttpGet]
+        [Route("user/{type}")]
+        public ActionResult<List<UserReadDto>> getUsersByType(string type)
+        {
+            return _usersManagers.GetUsersByType(type).ToList();
         }
     }
 }
