@@ -18,12 +18,14 @@ namespace RestaurantApp.BL.Managers
         
         private readonly IConfiguration _configuration;
         private readonly UserManager<User> _userManager;
+        private readonly IUserRepo userRepo;
 
-        public UsersManager( IConfiguration configuration, UserManager<User> userManager)
+        public UsersManager( IConfiguration configuration, UserManager<User> userManager , IUserRepo userRepo)
         {
           
             _configuration = configuration;
             _userManager = userManager;
+            this.userRepo = userRepo;
         }
 
         private TokenDto GenerateToken(IList<Claim> claimsList)
@@ -90,6 +92,46 @@ namespace RestaurantApp.BL.Managers
             await _userManager.AddClaimsAsync(newUser, claims);
 
             return new RegisterResult(true);
+        }
+
+        
+        
+
+        UserReadDto? IUsersManager.GetUserById(string id)
+        {
+            User? userfromDb = userRepo.GetUserById(id);
+            if (userfromDb is null) return null;
+            return new UserReadDto
+            {
+                UserId = userfromDb.Id,
+                UserEmail = userfromDb.Email,
+                Type = userfromDb.Type,
+                UserName = userfromDb.UserName
+            };
+        }
+
+        IEnumerable<UserReadDto> IUsersManager.GetAllUsers()
+        {
+            var users = userRepo.GetAllUsers();
+            return users.Select(r => new UserReadDto
+            {
+                UserId = r.Id,
+                UserEmail = r.Email,
+                UserName = r.UserName,
+                Type = r.Type
+            });
+        }
+
+        IEnumerable<UserReadDto> IUsersManager.GetUsersByType(string type)
+        {
+            var users = userRepo.GetUsersByType(type);
+            return users.Select(r => new UserReadDto
+            {
+                UserId = r.Id,
+                UserEmail = r.Email,
+                UserName = r.UserName,
+                Type = r.Type
+            });
         }
     }
  }

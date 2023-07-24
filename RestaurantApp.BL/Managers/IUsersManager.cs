@@ -1,4 +1,5 @@
 ﻿using RestaurantApp.BL.DTOs.Login_and_Register;
+using RestaurantApp.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,8 @@ namespace RestaurantApp.BL.Managers
     {
         Task<TokenDto> Login(LoginDto login);
         Task<RegisterResult> Register(RegisterDto registerDto);
+        public UserReadDto? GetUserById(string id);
+        public IEnumerable<UserReadDto> GetAllUsers();
+        public IEnumerable<UserReadDto> GetUsersByType(string type);
     }
 }

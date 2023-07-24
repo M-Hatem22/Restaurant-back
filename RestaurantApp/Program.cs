@@ -39,12 +39,15 @@ namespace RestaurantApp
                                   {
                                       policy.AllowAnyOrigin()
                                       .AllowAnyHeader()
-                                      .AllowAnyMethod();
+                                      .AllowAnyMethod()
+                                      .AllowCredentials()
+                                      .WithOrigins("http://localhost:4200");
                                   });
             });
             //----------------------
 
             builder.Services.AddScoped<IUsersManager, UsersManager>();
+            builder.Services.AddScoped<IUserRepo, UserRepo>();
 
             builder.Services.AddScoped<IItemtsReop, ItemsRepo>();
             builder.Services.AddScoped<IItemsManager, ItemsManager>();
@@ -119,7 +122,7 @@ namespace RestaurantApp
 
 
             app.MapControllers();
-            app.MapHub<userHub>("/hubs/userCount");
+            app.MapHub<userHub>("/hubs");
             app.Run();
         }
     }
