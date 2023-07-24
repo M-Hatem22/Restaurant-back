@@ -22,13 +22,16 @@ namespace RestaurantApp.DAL.Data.Context
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Order>().HasMany(o => o.OrderItems).WithOne(o => o.order);
-            
+            modelBuilder.Entity<Order>().HasMany(o => o.OrderItems).WithOne(o => o.Order).HasForeignKey(o=>o.OrderId);
 
-            
+            modelBuilder.Entity<Item>().HasMany(o => o.OrderItems).WithOne(o => o.Item).HasForeignKey(o => o.ItemId);
+           
+
+
+
         }
 
-        
+
     }
     }
 

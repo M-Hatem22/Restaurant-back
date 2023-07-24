@@ -12,8 +12,8 @@ using RestaurantApp.DAL.Data.Context;
 namespace RestaurantApp.DAL.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20230723183955_orderItems")]
-    partial class orderItems
+    [Migration("20230724083405_first")]
+    partial class first
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -214,18 +214,18 @@ namespace RestaurantApp.DAL.Migrations
 
             modelBuilder.Entity("RestaurantApp.DAL.Data.Models.OrderItems", b =>
                 {
-                    b.Property<int>("orderId")
+                    b.Property<int>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<int>("itemId")
+                    b.Property<int>("ItemId")
                         .HasColumnType("int");
 
-                    b.Property<int>("quantity")
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("orderId", "itemId");
+                    b.HasKey("OrderId", "ItemId");
 
-                    b.HasIndex("itemId");
+                    b.HasIndex("ItemId");
 
                     b.ToTable("OrderItems");
                 });
@@ -352,32 +352,42 @@ namespace RestaurantApp.DAL.Migrations
 
             modelBuilder.Entity("RestaurantApp.DAL.Data.Models.Order", b =>
                 {
-                    b.HasOne("RestaurantApp.DAL.User", "user")
+                    b.HasOne("RestaurantApp.DAL.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("user");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("RestaurantApp.DAL.Data.Models.OrderItems", b =>
                 {
-                    b.HasOne("RestaurantApp.DAL.Data.Models.Item", "item")
-                        .WithMany()
-                        .HasForeignKey("itemId")
+                    b.HasOne("RestaurantApp.DAL.Data.Models.Item", "Item")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RestaurantApp.DAL.Data.Models.Order", "order")
-                        .WithMany()
-                        .HasForeignKey("orderId")
+                    b.HasOne("RestaurantApp.DAL.Data.Models.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("item");
+                    b.Navigation("Item");
 
-                    b.Navigation("order");
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("RestaurantApp.DAL.Data.Models.Item", b =>
+                {
+                    b.Navigation("OrderItems");
+                });
+
+            modelBuilder.Entity("RestaurantApp.DAL.Data.Models.Order", b =>
+                {
+                    b.Navigation("OrderItems");
                 });
 #pragma warning restore 612, 618
         }

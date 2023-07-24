@@ -60,8 +60,8 @@ namespace RestaurantApp.BL.Managers.Orders
                 totalPrice = orderFromRequest.totalPrice,
                 OrderItems = orderFromRequest.Items.Select(i => new OrderItems
                 {
-                    itemId = i.Itemid,
-                    quantity = i.Quantity
+                    ItemId = i.Itemid,
+                    Quantity = i.Quantity
                 }).ToList()
             };
             ordersRepo.AddOrder(order);

@@ -15,7 +15,7 @@ namespace RestaurantApp.DAL.Data.Models
         public int Id { get; set; } = 0;
         [ForeignKey("User")]
         public string UserId { get; set; } = string.Empty;
-        public User user { get; set; } = new User();
+        public User? User { get; set; } 
         [Column(TypeName = "decimal(10,2)")]
         public decimal totalPrice { get; set; }= 0;
         public List<OrderItems> OrderItems = new();
