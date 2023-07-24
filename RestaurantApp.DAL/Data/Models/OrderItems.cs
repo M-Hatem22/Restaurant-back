@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace RestaurantApp.DAL.Data.Models
 {
-    [PrimaryKey("orderId", "itemId")]
+    [PrimaryKey("OrderId", "ItemId")]
     public class OrderItems 
     {
         [ForeignKey("Order")]
-        public int orderId { get; set; }
-        public Order order { get; set; } = new Order();
+        public int OrderId { get; set; }
+        public Order? Order { get; set; }
         [ForeignKey("Item")]
-        public int itemId { get; set; }
-        public Item item { get; set; } = new Item();
-        public int quantity { get; set; }
+        public int ItemId { get; set; }
+        public Item? Item { get; set; } 
+        public int Quantity { get; set; }
     }
 }

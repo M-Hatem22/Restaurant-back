@@ -89,7 +89,7 @@ namespace RestaurantApp.APIs.Controllers
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var newOrder = ordersManager.AddOrder(order,userId);
 
-            return Ok(new { message = "order"+newOrder+ "added successfully" });
+            return Ok(new { message = "order "+newOrder+ " added successfully" });
         }
 
     }

@@ -23,8 +23,8 @@ namespace RestaurantApp.BL
             OrderItems additem = new()
             {
                 //orderId = item.OrderId,
-                itemId = item.itemId,
-                quantity = item.quantity
+                ItemId = item.itemId,
+                Quantity = item.quantity
             };
             orderItemrepo.addItems(additem);
             orderItemrepo.SaveChanges();
@@ -36,9 +36,9 @@ namespace RestaurantApp.BL
            var orderitemfromdb= orderItemrepo.GetByOrderId(orderId);
             return orderitemfromdb.Select(i => new OrderItemsReadDto
             {
-                OrderId = i.orderId,
-                itemId=i.itemId,
-                quantity = i.quantity
+                OrderId = i.OrderId,
+                itemId=i.ItemId,
+                quantity = i.Quantity
             }) ;
         }
     }

@@ -31,7 +31,7 @@ namespace RestaurantApp.DAL
 
         public IEnumerable<OrderItems> GetByOrderId(int orderId)
         {
-            return _context.Set<OrderItems>().Where(a => a.orderId == orderId);
+            return _context.Set<OrderItems>().Where(a => a.OrderId == orderId);
         }
 
         public int SaveChanges()
